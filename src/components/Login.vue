@@ -30,9 +30,10 @@
           password : "123"
         },
         //规则
-        loginFormRules:{ername: [
+        loginFormRules:{
+          username: [
             { required: true, message: '请输入用户名', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+            { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
           ],
           password: [
             {required: true, message: '请输入密码', trigger: 'blur' },
@@ -48,18 +49,34 @@
       },
       //登录方法
       login(){
-        const data= this.$http.post("/user/login",this.loginForm)
-        console.log(data)
+        //登录校验
+        this.$refs.loginFormRef.validate(async valid =>{
+          if (valid){
+            //调用登录接口
+            const {data:res} = await this.$http.post("/user/login",this.loginForm)
+            //判断返回结果
+            if(res.message=="success"){
+              window.sessionStorage.setItem("token",res.data)
+              //登录成功 跳转到首页
+              this.$router.push("/index")
+             return this.$message.success("登录成功")
+            }else {
+              return this.$message.error("用户名密码错误")
+            }
+          }
+        })
       }
     }
   }
 </script>
 
 <style lang="less" scoped>
+
   .login_container{
       height: 100%;
       background-color: cadetblue;
   }
+
   .login_box{
     padding-right: 20px;
     background-color: aliceblue;
@@ -72,12 +89,14 @@
     border: 1px black;
     transform: translate(-50%,-50%);
   }
+
   .avatar_box{
     height: 80px;
     font-size: 35px;
     text-align: center;
     padding-top: 20px;
   }
+
   .btn_box{
     position: absolute;
     transform: translate(80%);
