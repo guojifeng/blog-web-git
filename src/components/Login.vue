@@ -26,7 +26,7 @@
       return{
         //登录表单信息
         loginForm:{
-          username : "root",
+          username : "guojifeng",
           password : "123"
         },
         //规则
@@ -56,9 +56,9 @@
             const {data:res} = await this.$http.post("/user/login",this.loginForm)
             //判断返回结果
             if(res.message=="success"){
-              window.sessionStorage.setItem("token",res.data)
+              window.sessionStorage.setItem("token",res.model)
               //登录成功 跳转到首页
-              this.$router.push("/index")
+              this.$router.push("/home")
              return this.$message.success("登录成功")
             }else {
               return this.$message.error("用户名密码错误")
