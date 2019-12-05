@@ -1,5 +1,5 @@
 <template>
-    <div class="login_container">
+    <div class="login_container note">
       <div class="login_box">
         <div class="avatar_box">
             后台管理系统
@@ -74,12 +74,20 @@
 
   .login_container{
       height: 100%;
-      background-color: cadetblue;
+      /*background-color: cadetblue;*/
+      background:url("~@/assets/image/bg.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .login_form{
+    font-style: normal;
+    color: black;
   }
 
   .login_box{
     padding-right: 20px;
-    background-color: aliceblue;
+    /*background-color: aliceblue;*/
     width: 450px;
     height: 300px;
     border-radius: 3px;
@@ -89,6 +97,7 @@
     border: 1px black;
     transform: translate(-50%,-50%);
   }
+
 
   .avatar_box{
     height: 80px;
